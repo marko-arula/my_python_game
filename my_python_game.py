@@ -1,7 +1,7 @@
-import sys
 import pygame
 from settings import Settings
 from car import Car
+import game_functions as gf
 
 def run_game():
     pygame.init()
@@ -12,10 +12,7 @@ def run_game():
     car = Car(screen)
 
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-        screen.fill(game_settings.bg_color)
-        car.blitme()
-        pygame.display.flip()
+        gf.check_events()
+        gf.update_screen(game_settings, screen, car)
+
 run_game()
