@@ -12,7 +12,7 @@ def run_game():
     car = Car(screen)
 
     while True:
-        gf.check_events()
+        gf.check_events(car)
         gf.update_screen(game_settings, screen, car)
 
 run_game()
