@@ -7,9 +7,13 @@ def check_events(car):
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
                 car.moving_right = True
+            if event.key == pygame.K_LEFT:
+                car.moving_left = True
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
                 car.moving_right = False
+            if event.key == pygame.K_LEFT:
+                car.moving_left = False
                 
 def update_screen(game_settings, screen, car):
     # add screen background
