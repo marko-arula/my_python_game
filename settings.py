@@ -9,3 +9,9 @@ class Settings:
         self.bg_color = (52,210,235)
         # car settings
         self.car_speed_factor = 0.5
+        # bullet
+        self.bullet_speed_factor = 0.5
+        self.bullet_width = 3
+        self.bullet_height = 15
+        self.bullet_color = 64, 64, 64
+        self.bullets_allowed = 3
