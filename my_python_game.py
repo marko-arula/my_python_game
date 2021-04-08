@@ -1,4 +1,6 @@
 import pygame
+from pygame.sprite import Group
+
 from settings import Settings
 from car import Car
 import game_functions as gf
@@ -10,10 +12,12 @@ def run_game():
     pygame.display.set_caption("Example Game")
 
     car = Car(game_settings, screen)
+    bullets = Group()
 
     while True:
         gf.check_events(car)
         car.update()
+        gf.update_bullets()
         gf.update_screen(game_settings, screen, car)
 
 run_game()
