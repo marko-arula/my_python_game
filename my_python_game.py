@@ -15,9 +15,9 @@ def run_game():
     bullets = Group()
 
     while True:
-        gf.check_events(car)
+        gf.check_events(game_settings, screen, car, bullets)
         car.update()
-        gf.update_bullets()
-        gf.update_screen(game_settings, screen, car)
+        gf.update_bullets(bullets)
+        gf.update_screen(game_settings, screen, car, bullets)
 
 run_game()
