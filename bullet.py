@@ -8,6 +8,7 @@ class Bullet(Sprite):
         self.rect = pygame.Rect(0, 0, game_setting.bullet_width, game_setting.bullet_height)
         self.rect.centerx = car.rect.centerx
         self.rect.top = car.rect.top
+        self.y = float(self.rect.y)
         # bullet settings
         self.color = game_setting.bullet_color
         self.speed_factor = game_setting.bullet_speed_factor

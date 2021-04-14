@@ -1,12 +1,18 @@
 import sys
 import pygame
 from bullet import Bullet
-def check_keydown_events(event, car):
+
+def check_keydown_events(event, game_settings, screen, car, bullets):
     """Check your keyboard events"""
     if event.key == pygame.K_RIGHT:
         car.moving_right = True
     if event.key == pygame.K_LEFT:
         car.moving_left = True
+    if event.key == pygame.K_SPACE:
+        fire_bullet(game_settings, screen, car, bullets)
+    if event.key == pygame.K_q:
+        sys.exit()
+
 def check_keyup_events(event, car):
     """Check your keyboard events"""
     if event.key == pygame.K_RIGHT:
@@ -18,23 +24,9 @@ def check_events(game_settings, screen, car, bullets):
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                car.moving_right = True
-            if event.key == pygame.K_LEFT:
-                car.moving_left = True
-            if event.key == pygame.K_UP:
-                car.moving_up = True
-            if event.key == pygame.K_DOWN:
-                car.moving_down = True
+            check_keydown_events(event, game_settings, screen, car, bullets)
         elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_RIGHT:
-                car.moving_right = False
-            if event.key == pygame.K_LEFT:
-                car.moving_left = False
-            if event.key == pygame.K_UP:
-                car.moving_up = False
-            if event.key == pygame.K_DOWN:
-                car.moving_down = False
+            check_keyup_events(event, car)
                 
 def update_screen(game_settings, screen, car, bullets):
     # add screen background
