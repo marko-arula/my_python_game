@@ -117,17 +117,20 @@ def update_aliens(game_settings, stats, screen, car, aliens, bullets):
 
 
 def car_hit(game_settings, stats, screen, car, aliens, bullets):
-    # cars left minus 1
-    stats.cars_left = stats.cars_left - 1
-    # aliens and bullets groups are empty
-    aliens.empty()
-    bullets.empty()
-    # creates an aliens fleet
-    create_fleet(game_settings, screen, car, aliens)
-    # center car
-    car.car_center()
-    # pause
-    sleep(2)
+    if stats.cars_left > 0:
+        # cars left minus 1
+        stats.cars_left = stats.cars_left - 1
+        # aliens and bullets groups are empty
+        aliens.empty()
+        bullets.empty()
+        # creates an aliens fleet
+        create_fleet(game_settings, screen, car, aliens)
+        # center car
+        car.car_center()
+        # pause
+        sleep(2)
+    else:
+        stats.game_active = False
 
 def check_aliens_bottom(game_settings, stats, screen, car, aliens, bullets):
     screen_rect = screen.get_rect()
