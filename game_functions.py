@@ -2,6 +2,7 @@ import sys
 import pygame
 from bullet import Bullet
 from alien import Alien
+from time import sleep
 
 def check_keydown_events(event, game_settings, screen, car, bullets):
     """Check your keyboard events"""
@@ -9,6 +10,10 @@ def check_keydown_events(event, game_settings, screen, car, bullets):
         car.moving_right = True
     if event.key == pygame.K_LEFT:
         car.moving_left = True
+    if event.key == pygame.K_DOWN:
+        car.moving_down = True
+    if event.key == pygame.K_UP:
+        car.moving_up = True
     if event.key == pygame.K_SPACE:
         fire_bullet(game_settings, screen, car, bullets)
     if event.key == pygame.K_q:
@@ -20,6 +25,10 @@ def check_keyup_events(event, car):
         car.moving_right = False
     if event.key == pygame.K_LEFT:
         car.moving_left = False
+    if event.key == pygame.K_DOWN:
+        car.moving_down = False
+    if event.key == pygame.K_UP:
+        car.moving_up = False
 def check_events(game_settings, screen, car, bullets):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -48,7 +57,7 @@ def update_bullets(game_settings, screen, car, aliens, bullets):
             bullets.remove(bullet)
     check_bullet_alien_collisions(game_settings, screen, car, aliens, bullets)
     
-def check_bullet_alien_collisions(game_settings, screen, car, aliens, bullets)
+def check_bullet_alien_collisions(game_settings, screen, car, aliens, bullets):
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
     # Remove bullets and create new fleet
     if len(aliens) == 0:
@@ -88,15 +97,32 @@ def create_fleet(game_settings, screen, car, aliens):
 
 def check_fleet_edges(game_settings, aliens):
     for alien in aliens.sprites():
-        if alien.check_edges():
-            change_fleet_direction(game_settings, aliens)
-            break
+       if alien.check_edges():
+           change_fleet_direction(game_settings, aliens)
+           break
 
 def change_fleet_direction(game_settings, aliens):
     for alien in aliens.sprites():
         alien.rect.y += game_settings.fleet_drop_speed
     game_settings.fleet_direction *= -1
 
-def update_aliens(game_settings, aliens):
+def update_aliens(game_settings, stats, screen, car, aliens, bullets):
     check_fleet_edges(game_settings, aliens)
     aliens.update()
+    # Check collisions between car and aliens
+    if pygame.sprite.spritecollideany(car, aliens):
+        car_hit(game_settings, stats, screen, car, aliens, bullets)
+
+
+def car_hit(game_settings, stats, screen, car, aliens, bullets):
+    # cars left minus 1
+    stats.cars_left = stats.cars_left - 1
+    # aliens and bullets groups are empty
+    aliens.empty()
+    bullets.empty()
+    # creates an aliens fleet
+    create_fleet(game_settings, screen, car, aliens)
+    # center car
+    car.car_center()
+    # pause
+    sleep(2)
