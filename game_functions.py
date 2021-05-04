@@ -46,6 +46,9 @@ def update_bullets(game_settings, screen, car, aliens, bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+    check_bullet_alien_collisions(game_settings, screen, car, aliens, bullets)
+    
+def check_bullet_alien_collisions(game_settings, screen, car, aliens, bullets)
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
     # Remove bullets and create new fleet
     if len(aliens) == 0:
