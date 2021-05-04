@@ -41,12 +41,17 @@ def update_screen(game_settings, screen, car, aliens, bullets):
     # display the last screen
     pygame.display.flip()
 
-def update_bullets(aliens, bullets):
+def update_bullets(game_settings, screen, car, aliens, bullets):
     bullets.update()
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    # Remove bullets and create new fleet
+    if len(aliens) == 0:
+        bullets.empty()
+        create_fleet(game_settings, screen, car, aliens)
+
 def fire_bullet(game_settings, screen, car, bullets):
     if len(bullets) < game_settings.bullets_allowed:
         new_bullet = Bullet(game_settings, screen, car)
