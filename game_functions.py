@@ -41,12 +41,12 @@ def update_screen(game_settings, screen, car, aliens, bullets):
     # display the last screen
     pygame.display.flip()
 
-def update_bullets(bullets):
+def update_bullets(aliens, bullets):
     bullets.update()
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
-
+    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
 def fire_bullet(game_settings, screen, car, bullets):
     if len(bullets) < game_settings.bullets_allowed:
         new_bullet = Bullet(game_settings, screen, car)
@@ -58,7 +58,7 @@ def get_number_aliens_x(game_settings, alien_width):
     return number_aliens_x
 
 def get_number_rows(game_settings, car_height, alien_height):
-    available_space_y = game_settings.screen_height - 3 * alien_height - car_height
+    available_space_y = game_settings.screen_height - 6 * alien_height - car_height
     number_rows = int(available_space_y / (2 * alien_height))
     return number_rows
 
