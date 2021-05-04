@@ -112,6 +112,8 @@ def update_aliens(game_settings, stats, screen, car, aliens, bullets):
     # Check collisions between car and aliens
     if pygame.sprite.spritecollideany(car, aliens):
         car_hit(game_settings, stats, screen, car, aliens, bullets)
+    # check aliens appear screen bottom
+    check_aliens_bottom(game_settings, stats, screen, car, aliens, bullets)
 
 
 def car_hit(game_settings, stats, screen, car, aliens, bullets):
@@ -126,3 +128,10 @@ def car_hit(game_settings, stats, screen, car, aliens, bullets):
     car.car_center()
     # pause
     sleep(2)
+
+def check_aliens_bottom(game_settings, stats, screen, car, aliens, bullets):
+    screen_rect = screen.get_rect()
+    for alien in aliens.sprites():
+        if alien.rect.bottom >= screen_rect.bottom:
+            car_hit(game_settings, stats, screen, car, aliens, bullets)
+            break
