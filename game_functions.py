@@ -45,6 +45,7 @@ def check_events(game_settings, screen, stats, play_button, car, bullets):
 def check_play_button(stats, play_button, mouse_x, mouse_y):
     if play_button.rect.collidepoint(mouse_x, mouse_y):
         stats.game_active = True
+        pygame.mouse.set_visible(False)
 
 def update_screen(game_settings, screen, stats, car, aliens, bullets, play_button):
     # add screen background
@@ -142,6 +143,7 @@ def car_hit(game_settings, stats, screen, car, aliens, bullets):
         sleep(2)
     else:
         stats.game_active = False
+        pygame.mouse.set_visible(True)
 
 def check_aliens_bottom(game_settings, stats, screen, car, aliens, bullets):
     screen_rect = screen.get_rect()
