@@ -38,7 +38,7 @@ def check_events(game_settings, screen, car, bullets):
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, car)
                 
-def update_screen(game_settings, screen, car, aliens, bullets):
+def update_screen(game_settings, screen, stats, car, aliens, bullets, play_button):
     # add screen background
     screen.fill(game_settings.bg_color)
     for bullet in bullets.sprites():
@@ -47,6 +47,9 @@ def update_screen(game_settings, screen, car, aliens, bullets):
     car.blitme()
     # add alien to screen
     aliens.draw(screen)
+    # display play button
+    if stats.game_active == False:
+        play_button.draw_button()
     # display the last screen
     pygame.display.flip()
 
