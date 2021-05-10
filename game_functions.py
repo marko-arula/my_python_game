@@ -30,7 +30,7 @@ def check_keyup_events(event, car):
     if event.key == pygame.K_UP:
         car.moving_up = False
 
-def check_events(game_settings, screen, stats, play_button, car, bullets):
+def check_events(game_settings, screen, stats, play_button, car, aliens, bullets):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -40,12 +40,19 @@ def check_events(game_settings, screen, stats, play_button, car, bullets):
             check_keyup_events(event, car)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(stats, play_button, mouse_x, mouse_y)
+            check_play_button(game_settings, screen, stats, play_button, car, aliens, bullets, mouse_x, mouse_y)
 
-def check_play_button(stats, play_button, mouse_x, mouse_y):
-    if play_button.rect.collidepoint(mouse_x, mouse_y):
+def check_play_button(game_settings, screen, stats, play_button, car, aliens, bullets, mouse_x, mouse_y):
+    button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+    if button_clicked and not stats.game_active:
+        stats.reset_stats()
+        game_settings.init_dynamic_scale()
         stats.game_active = True
         pygame.mouse.set_visible(False)
+        aliens.empty()
+        bullets.empty()
+        create_fleet(game_settings, screen, car, aliens)
+        car.car_center()
 
 def update_screen(game_settings, screen, stats, car, aliens, bullets, play_button):
     # add screen background
@@ -74,6 +81,7 @@ def check_bullet_alien_collisions(game_settings, screen, car, aliens, bullets):
     # Remove bullets and create new fleet
     if len(aliens) == 0:
         bullets.empty()
+        game_settings.increase_speed()
         create_fleet(game_settings, screen, car, aliens)
 
 def fire_bullet(game_settings, screen, car, bullets):
