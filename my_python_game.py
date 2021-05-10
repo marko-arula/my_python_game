@@ -27,7 +27,7 @@ def run_game():
     gf.create_fleet(game_settings, screen, car, aliens)
 
     while True:
-        gf.check_events(game_settings, screen, car, bullets)
+        gf.check_events(game_settings, screen, stats, play_button, car, bullets)
         car.update()
         gf.update_bullets(game_settings, screen, car, aliens, bullets)
         gf.update_aliens(game_settings, stats, screen, car, aliens, bullets)
