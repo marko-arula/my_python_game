@@ -54,7 +54,7 @@ def check_play_button(game_settings, screen, stats, play_button, car, aliens, bu
         create_fleet(game_settings, screen, car, aliens)
         car.car_center()
 
-def update_screen(game_settings, screen, stats, car, aliens, bullets, play_button):
+def update_screen(game_settings, screen, stats, sb, car, aliens, bullets, play_button):
     # add screen background
     screen.fill(game_settings.bg_color)
     for bullet in bullets.sprites():
@@ -63,6 +63,8 @@ def update_screen(game_settings, screen, stats, car, aliens, bullets, play_butto
     car.blitme()
     # add alien to screen
     aliens.draw(screen)
+    # show scoreboard
+    sb.draw_score()
     # display play button
     if stats.game_active == False:
         play_button.draw_button()
