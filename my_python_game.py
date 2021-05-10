@@ -34,7 +34,7 @@ def run_game():
         gf.check_events(game_settings, screen, stats, play_button, car, aliens, bullets)
         gf.update_screen(game_settings, screen, stats, sb, car, aliens, bullets, play_button)
         if stats.game_active == True:
-            gf.update_bullets(game_settings, screen, car, aliens, bullets)
+            gf.update_bullets(game_settings, screen, stats, sb, car, aliens, bullets)
             gf.update_aliens(game_settings, stats, screen, car, aliens, bullets)
             car.update()
 

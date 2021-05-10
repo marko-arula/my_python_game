@@ -30,6 +30,10 @@ class Settings:
         # fleet direction
         self.fleet_direction = 1
 
+        # points for killing aliens
+        self.alien_points = 50
+
+
     def increase_speed(self):
         self.car_speed_factor *= self.speedup_scale
         self.bullet_speed_factor *= self.speedup_scale
