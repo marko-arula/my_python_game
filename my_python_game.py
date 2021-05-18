@@ -15,7 +15,7 @@ def run_game():
     pygame.init()
     game_settings = Settings()
     screen = pygame.display.set_mode((game_settings.screen_width, game_settings.screen_height))
-    pygame.display.set_caption("Example Game")
+    pygame.display.set_caption("Shooting car")
     # button to start the game
     play_button = Button(game_settings, screen, "Play")
     # game statistics object
